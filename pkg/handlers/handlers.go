@@ -29,7 +29,7 @@ func NewHandlers(r *Repository) {
 	Repo = r
 }
 
-//Home fnction hadles Home page
+//Home page function hadles Home page
 func (m *Repository) Home(w http.ResponseWriter, r *http.Request) {
 	//fmt.Fprintf(w, "Welcome to home pagae")
 	stringMap := make(map[string]string)
