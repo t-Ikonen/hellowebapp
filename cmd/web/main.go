@@ -4,7 +4,9 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"time"
 
+	"github.com/alexedwards/scs/v2"
 	"github.com/t-Ikonen/hellowebapp/pkg/config"
 	"github.com/t-Ikonen/hellowebapp/pkg/handlers"
 	"github.com/t-Ikonen/hellowebapp/pkg/render"
@@ -12,10 +14,22 @@ import (
 
 const portNum = ":8080"
 
+var appCnf config.AppConfig
+var session *scs.SessionManager
+
 //Main of HelloWeb app
 func main() {
 
-	var appCnf config.AppConfig
+	//change to true when in production
+	appCnf.InProduction = false
+
+	session = scs.New()
+	session.Lifetime = 24 * time.Hour
+	session.Cookie.Persist = true
+	session.Cookie.SameSite = http.SameSiteLaxMode
+	session.Cookie.Secure = appCnf.InProduction
+
+	appCnf.Session = session
 
 	tmplCache, err := render.CreateTemplateCache()
 	if err != nil {
