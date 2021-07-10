@@ -2,7 +2,6 @@
 package handlers
 
 import (
-	"fmt"
 	"net/http"
 
 	"github.com/t-Ikonen/hellowebapp/pkg/config"
@@ -33,24 +32,12 @@ func NewHandlers(r *Repository) {
 //Home page function hadles Home page
 func (m *Repository) Home(w http.ResponseWriter, r *http.Request) {
 
-	ipAddr := r.RemoteAddr
-	m.App.Session.Put(r.Context(), "remote_ip", ipAddr)
-
-	fmt.Println("IP on home sivulla ", ipAddr)
 	//send data to template
 	render.RenderTemplate(w, "home.page.tmpl", &models.TemplateData{})
 }
 
 // About func handles About page
 func (m *Repository) About(w http.ResponseWriter, r *http.Request) {
-	stringMap := make(map[string]string)
-	stringMap["test"] = "Hello again"
 
-	remoteIp := m.App.Session.GetString(r.Context(), "remote_ip")
-	stringMap["remote_ip"] = remoteIp
-	fmt.Println("IP on About sivulla ", remoteIp)
-
-	render.RenderTemplate(w, "about.page.tmpl", &models.TemplateData{
-		StringMap: stringMap,
-	})
+	render.RenderTemplate(w, "about.page.tmpl", &models.TemplateData{})
 }
