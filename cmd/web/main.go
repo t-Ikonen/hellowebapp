@@ -50,6 +50,7 @@ func main() {
 	}
 	fmt.Printf("Starting app on port %s for your pleasure \n", portNum)
 	//fmt.Println(fmt.Sprintf("Starting app on port %s for your pleasure \n", portNum))
+	http.Handle("/static/", http.StripPrefix("/static/images", http.FileServer(http.Dir("static/images"))))
 	err = srv.ListenAndServe()
 	log.Fatal(err)
 
