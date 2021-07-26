@@ -54,11 +54,12 @@ func RenderTemplate(w http.ResponseWriter, tmpl string, tmplD *models.TemplateDa
 //CreateTemplateCache creates template cache
 func CreateTemplateCache() (map[string]*template.Template, error) {
 	myCache := map[string]*template.Template{}
+
 	pages, err := filepath.Glob("./templates/*.page.tmpl")
 	if err != nil {
 		return myCache, err
 	}
-
+	println("pages: ", pages)
 	for _, page := range pages {
 		name := filepath.Base(page)
 		//fmt.Println("page filelistassa on", page, "ja name on ", name)
